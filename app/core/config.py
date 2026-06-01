@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     # Hermes Agent (OpenRouter)
     HERMES_API_URL: str = "https://openrouter.ai/api/v1"
     HERMES_API_KEY: str = ""
-    HERMES_MODEL: str = "qwen/qwen-2.5-coder-32b-instruct"
+    HERMES_MODEL: str = "nousresearch/hermes-3-llama-3.1-405b:free"
 
     # App
     APP_ENV: str = "production"
