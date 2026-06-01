@@ -40,14 +40,6 @@ uvicorn app.main:app --host 0.0.0.0 --port 8001
 4. Secret: same as `GITHUB_WEBHOOK_SECRET` in .env
 5. Events: select "Pull requests"
 
-## Deploy (Coolify)
-
-1. Create new app in Coolify pointing to this repo
-2. Build Pack: Dockerfile
-3. Port: 8001
-4. Add environment variables from .env.example
-5. Deploy
-
 ## Project Structure
 
 ```
