@@ -6,10 +6,10 @@ class Settings(BaseSettings):
     GITHUB_WEBHOOK_SECRET: str
     GITHUB_TOKEN: str
 
-    # Hermes Agent (Ollama local)
-    HERMES_API_URL: str = "http://localhost:11434/v1"
-    HERMES_API_KEY: str = "ollama"
-    HERMES_MODEL: str = "qwen2.5-coder:1.5b"
+    # Hermes Agent (OpenRouter)
+    HERMES_API_URL: str = "https://openrouter.ai/api/v1"
+    HERMES_API_KEY: str = ""
+    HERMES_MODEL: str = "qwen/qwen-2.5-coder-32b-instruct"
 
     # App
     APP_ENV: str = "production"
