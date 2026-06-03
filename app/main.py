@@ -27,14 +27,10 @@ app = FastAPI(
 
 # ─── Health ───────────────────────────────────────────────────────────────────
 
-@app.get("/health")
+@app.api_route("/", methods=["GET", "HEAD"])
+@app.api_route("/health", methods=["GET", "HEAD"])
 def health():
-    return {
-        "status": "healthy",
-        "agent": agent.AGENT_NAME,
-        "model": agent.MODEL,
-        "version": "1.0.0",
-    }
+    return {"status": "healthy", "agent": agent.AGENT_NAME, "version": "1.0.0"}
 
 
 # ─── Webhook Endpoint ─────────────────────────────────────────────────────────
