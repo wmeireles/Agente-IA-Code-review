@@ -3,6 +3,7 @@ Hermes Agent — Code Reviewer Agent
 Segue o padrão de User Stories do framework Hermes Agent (Nous Research).
 """
 import json
+import asyncio
 import httpx
 import logging
 from typing import List
@@ -127,10 +128,19 @@ Analyze every changed line. Return your review as JSON matching the output schem
 
         logger.info(f"[{self.AGENT_NAME}] Sending diff to Hermes ({len(diff)} chars)")
 
+        url = f"{self.api_url}/chat/completions"
         async with httpx.AsyncClient(timeout=180.0) as client:
-            url = f"{self.api_url}/chat/completions"
-            resp = await client.post(url, json=payload, headers=headers)
-            resp.raise_for_status()
+            for attempt in range(3):
+                resp = await client.post(url, json=payload, headers=headers)
+                if resp.status_code == 429:
+                    wait = 2 ** attempt * 10
+                    logger.warning(f"[{self.AGENT_NAME}] Rate limited, retrying in {wait}s...")
+                    await asyncio.sleep(wait)
+                    continue
+                resp.raise_for_status()
+                break
+            else:
+                resp.raise_for_status()
 
         data = resp.json()
         content = data["choices"][0]["message"]["content"]
